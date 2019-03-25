@@ -1,10 +1,13 @@
-function printText(titolo, titolooriginale, lingua, voto){
+function printText(title, originalTitle, originalLanguage, graduation){
   var templateItem = {
     title: title,
     originalTitle: originalTitle,
-    originalLanguage: language,
-    graduation: vote
+    originalLanguage: originalLanguage,
+    graduation:  graduation
   }
+  console.log(graduation);
+
+  addStar(graduation);
 
   var itemText = $(".serched__result");
   var template = $("#film__template").html();
@@ -12,6 +15,27 @@ function printText(titolo, titolooriginale, lingua, voto){
   var textFilm = compiled(templateItem);
   itemText.append(textFilm);
 
+}
+
+function addStar(vote){
+  if (vote < 5 & vote > 4) {
+    $(".star5").addClass("hidden");
+  }
+  if (vote < 4 & vote >3) {
+    $(".star4").addClass("hidden");
+    $(".star5").addClass("hidden");
+  }
+  if (vote < 3 & vote>2) {
+    $(".star3").addClass("hidden");
+    $(".star4").addClass("hidden");
+    $(".star5").addClass("hidden");
+  }
+  if (vote < 2 & vote>1) {
+    $(".star2").addClass("hidden");
+    $(".star3").addClass("hidden");
+    $(".star4").addClass("hidden");
+    $(".star5").addClass("hidden");
+  }
 }
 
 
@@ -36,16 +60,28 @@ function ajaxTest(title){
         var originalTitle = res.original_title;
         var language =  res.original_language;
         var vote =  res.vote_average;
-        printText(title, originalTitle, language, vote);
-
+        var date = res.release_date;
+        var vote5 = (vote*5)/10;
+        printText(title, originalTitle, language, vote5);
+      }
     }
   })
 }
+function serchResults(){
+  $(".input__text").keyup(function(event){
+   if (event.which == 13) {
 
+     var messaggio = $(this).val();
+     console.log(messaggio);
+     ajaxTest(messaggio);
+   }
+ })
+}
 
 
 function init(){
- ajaxTest("back in the future");
+   serchResults()
+
 
 }
 $(document).ready(init)

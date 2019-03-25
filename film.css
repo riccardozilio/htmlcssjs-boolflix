@@ -117,9 +117,12 @@
   color: white;
 }
 .titolo__film{
-  font-size: 25px;
+  font-size: 20px;
 }
 .titolo__originale{
   color: lightgrey;
   font-size: 12px;
+}
+.hidden{
+  display: none;
 }
