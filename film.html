@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <!-- FONT: roboto -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- FONT: FONTAWESOME -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
+  <!-- JS: JQUERY -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- JS: HANDLEBARS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js" charset="utf-8"></script>
+
+  <!-- JS: HANDLEBARS template -->
+  <script id="film__template" type="text/x-handlebars-template">
+    <div class="container__item">
+      <div class="container__item__text">
+        <p class="titolo__film">{{title}}</p>
+        <p class="titolo__originale">{{originalTitle}}</p>
+        <p class="lingua">{{originalLanguage}}</p>
+        <p class="voto">{{graduation}}</p>
+      </div>
+
+    </div>
+  </script>
+
+  <!-- JS: moment.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <!-- CSS: MY STYLE -->
+  <link rel="stylesheet" href="film.css">
+  <!-- JS: MY SCRIPT -->
+  <script src="film.js" charset="utf-8"></script>
+
+  <title></title>
+</head>
+
+  <body>
+    <div class="head">
+      <div class="head__left">
+        <div class="head__left__box">
+          <img src="img/logo.svg" alt="">
+          <h1>BOOLFLIX</h1>
+        </div>
+      </div>
+      <div class="head__right">
+        <div class="head__menu">
+          <span class="head__menu__item">SERCH</span>
+          <span class="head__menu__item">CHI SIAMO</span>
+          <span class="head__menu__item">FILM PIù VOTATI</span>
+          <span class="head__menu__item">ULTIMI FILM</span>
+          <span class="head__menu__item">INPOSTAZIONI</span>
+        </div>
+      </div>
+    </div>
+    <div class="serch__box">
+      <input type="text" name="" value="">
+    </div>
+    <div class="serched__film container">
+      <h1 class="title__section">SERCHED FILM</h1>
+      <div class="film__container serched__result">
+
+      </div>
+
+    </div>
+    <div class="new__film container">
+      <h1 class="title__section">NEW FILM</h1>
+      <div class="film__container">
+        <div class="container__item">
+
+        </div>
+        <div class="container__item">
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
