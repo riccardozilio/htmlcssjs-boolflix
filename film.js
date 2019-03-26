@@ -1,9 +1,9 @@
 function printText(title, originalTitle, originalLanguage, graduation){
-
+  var flag = addFleg(originalLanguage);
   var templateItem = {
     title: title,
     originalTitle: originalTitle,
-    originalLanguage: originalLanguage,
+    originalLanguage: flag,
     graduation:  graduation,
     star: addStar(graduation)
 
@@ -17,8 +17,46 @@ function printText(title, originalTitle, originalLanguage, graduation){
   var compiled = Handlebars.compile(template);
   var textFilm = compiled(templateItem);
   itemText.append(textFilm);
+}
+function printTextSeries(title, originalTitle, originalLanguage, graduation){
+  var flag = addFleg(originalLanguage);
+  var templateItem = {
+    title: title,
+    originalTitle: originalTitle,
+    originalLanguage: flag,
+    graduation:  graduation,
+    star: addStar(graduation)
+
+  }
+  console.log(graduation);
 
 
+
+  var itemText = $(".serched__result");
+  var template = $("#film__template").html();
+  var compiled = Handlebars.compile(template);
+  var textFilm = compiled(templateItem);
+  itemText.append(textFilm);
+}
+
+
+
+function addFleg(language){
+  str = "";
+  if (language == "en") {
+    str = '<img src="img/flag/en.svg" alt="" class="flag">';
+    return str;
+  }
+  if (language == "it") {
+    str = '<img src="img/flag/it.svg" alt="" class="flag">';
+    return str;
+  }
+  if (language == "ja") {
+    str = '<img src="img/flag/jp.svg" alt="" class="flag">';
+    return str;
+  }else {
+    str = '<img src="img/flag/anonimous.svg" alt="" class="flag">';
+  }
 }
 
 function addStar(graduation){
@@ -42,7 +80,7 @@ function removeSerch(){
 }
 
 
-function ajaxTest(title){
+function ajaxFilm(title){
   var dataout ={
     api_key: "ef19f025849e34c73791406b46789e39",
     language: "it-IT",
@@ -63,11 +101,38 @@ function ajaxTest(title){
         var date = res.release_date;
         var round = roundNumber(vote);
         printText(title, originalTitle, language, round);
-        // addStar(round);
+
       }
     }
   })
 }
+
+function ajaxTopFilm(){
+  var dataout ={
+    api_key: "ef19f025849e34c73791406b46789e39",
+    language: "it-IT",
+  }
+  $.ajax ({
+    url: "https://api.themoviedb.org/3/trending/movie/week",
+    method: "GET",
+    data: dataout,
+    success: function(data){
+      var ress = data.results;
+      for (var i =0; i < 8 ; i++) {
+        var res = ress[i];
+        var title = res.title;
+        var originalTitle = res.original_title;
+        var language =  res.original_language;
+        var vote =  res.vote_average;
+        var date = res.release_date;
+        var round = roundNumber(vote);
+        printText(title, originalTitle, language, round);
+
+      }
+    }
+  })
+}
+
 
 function roundNumber(vote){
   var votefive = (vote/2);
@@ -75,13 +140,16 @@ function roundNumber(vote){
   return round;
 }
 
+
+
 function serchResults(){
+  ajaxTopFilm();
   $(".input__text").keyup(function(event){
    if (event.which == 13) {
      removeSerch();
      var messaggio = $(this).val();
      console.log(messaggio);
-     ajaxTest(messaggio);
+     ajaxFilm(messaggio);
    }
  })
 }

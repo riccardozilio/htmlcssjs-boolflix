@@ -126,3 +126,12 @@
 .yellow{
   color: yellow;
 }
+
+.flag{
+  max-width: 20px;
+}
+.serch__box div {
+  color: #36FF96;
+  padding: 20px;
+  
+}

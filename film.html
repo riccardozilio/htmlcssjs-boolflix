@@ -15,11 +15,15 @@
 
   <!-- JS: HANDLEBARS template -->
   <script id="film__template" type="text/x-handlebars-template">
+
+
     <div class="container__item">
       <div class="container__item__text">
         <p class="titolo__film">{{title}}</p>
         <p class="titolo__originale">{{originalTitle}}</p>
-        <p class="lingua">{{originalLanguage}}</p>
+        <div class="lingua">
+          <p>{{{originalLanguage}}}</p>
+        </div>
         <div id="starappend">
           <p class="voto">{{graduation}}</p>
           {{{star}}}
@@ -42,6 +46,9 @@
 
   <title></title>
 </head>
+<div class="lingua">
+  <img src="" alt="">
+</div>
 
   <body>
     <div class="head">
@@ -63,12 +70,20 @@
     </div>
     <div class="serch__box">
       <input type="text" name="" value="" class="input__text">
+      <div class="film__button">
+        <span>film</span>
+      </div>
+      <div class="series__button">
+        <span>serie tv</span>
+      </div>
     </div>
     <div class="serched__film container">
       <h1 class="title__section">SERCHED FILM</h1>
+
       <div class="film__container serched__result">
 
       </div>
+
 
     </div>
     <div class="new__film container">
