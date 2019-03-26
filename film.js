@@ -1,13 +1,16 @@
 function printText(title, originalTitle, originalLanguage, graduation){
+
   var templateItem = {
     title: title,
     originalTitle: originalTitle,
     originalLanguage: originalLanguage,
-    graduation:  graduation
+    graduation:  graduation,
+    star: addStar(graduation)
+
   }
   console.log(graduation);
 
-  addStar(graduation);
+
 
   var itemText = $(".serched__result");
   var template = $("#film__template").html();
@@ -15,31 +18,28 @@ function printText(title, originalTitle, originalLanguage, graduation){
   var textFilm = compiled(templateItem);
   itemText.append(textFilm);
 
+
 }
 
-function addStar(vote){
-  if (vote < 5 & vote > 4) {
-    $(".star5").addClass("hidden");
+function addStar(graduation){
+  var str = ""
+  for (var i = 0; i < 5; i++) {
+    if (graduation > i) {
+    str +='<i class="fas fa-star yellow"></i>';
+    }else {
+      str +='<i class="far fa-star"></i>';
+    }
   }
-  if (vote < 4 & vote >3) {
-    $(".star4").addClass("hidden");
-    $(".star5").addClass("hidden");
-  }
-  if (vote < 3 & vote>2) {
-    $(".star3").addClass("hidden");
-    $(".star4").addClass("hidden");
-    $(".star5").addClass("hidden");
-  }
-  if (vote < 2 & vote>1) {
-    $(".star2").addClass("hidden");
-    $(".star3").addClass("hidden");
-    $(".star4").addClass("hidden");
-    $(".star5").addClass("hidden");
-  }
+  return str;
+
 }
 
 
+function removeSerch(){
+  var clear = $(".container__item");
+  clear.remove();
 
+}
 
 
 function ajaxTest(title){
@@ -54,23 +54,31 @@ function ajaxTest(title){
     data: dataout,
     success: function(data){
       var ress = data.results;
-      for (var i = 0; i < ress.length; i++) {
+      for (var i =0; i < ress.length ; i++) {
         var res = ress[i];
         var title = res.title;
         var originalTitle = res.original_title;
         var language =  res.original_language;
         var vote =  res.vote_average;
         var date = res.release_date;
-        var vote5 = (vote*5)/10;
-        printText(title, originalTitle, language, vote5);
+        var round = roundNumber(vote);
+        printText(title, originalTitle, language, round);
+        // addStar(round);
       }
     }
   })
 }
+
+function roundNumber(vote){
+  var votefive = (vote/2);
+  round = Math.floor(votefive);
+  return round;
+}
+
 function serchResults(){
   $(".input__text").keyup(function(event){
    if (event.which == 13) {
-
+     removeSerch();
      var messaggio = $(this).val();
      console.log(messaggio);
      ajaxTest(messaggio);
@@ -81,6 +89,7 @@ function serchResults(){
 
 function init(){
    serchResults()
+
 
 
 }
