@@ -18,6 +18,9 @@
 
 
     <div class="container__item">
+      <div class="poster__img">
+        <img src="{{posterimg}}" alt="">
+      </div>
       <div class="container__item__text">
         <p class="titolo__film">{{title}}</p>
         <p class="titolo__originale">{{originalTitle}}</p>
@@ -27,8 +30,6 @@
         <div id="starappend">
           <p class="voto">{{graduation}}</p>
           {{{star}}}
-
-
         </div>
       </div>
     </div>
@@ -50,6 +51,7 @@
   <img src="" alt="">
 </div>
 
+
   <body>
     <div class="head">
       <div class="head__left">
@@ -69,7 +71,14 @@
       </div>
     </div>
     <div class="serch__box">
-      <input type="text" name="" value="" class="input__text">      
+      <div >
+        <input type="text" name="" value="" class="input__text">
+      </div>
+      <div class="input__buttons">
+        <span class="film__button">film</span>
+        <span class="actor__button">actor</span>
+        <span class="series__button">series</span>
+      </div>
     </div>
     <div class=" container">
       <h1 class="title__section">SERCHED FILM</h1>
@@ -85,6 +94,14 @@
       <h1 class="title__section">SERCHED SERIES</h1>
 
       <div class="film__container serched__series">
+
+      </div>
+
+    </div>
+    <div class=" container">
+      <h1 class="title__section">TOP ACTORS</h1>
+
+      <div class="film__container top__actors">
 
       </div>
 
