@@ -1,6 +1,6 @@
 // HANDLEBARS serch film
 
-function printText(title, originalTitle, originalLanguage, graduation, img){
+function printText(title, originalTitle, originalLanguage, graduation, img, id, type){
   var flag = addFleg(originalLanguage);
   var templateItem = {
     title: title,
@@ -8,7 +8,9 @@ function printText(title, originalTitle, originalLanguage, graduation, img){
     originalLanguage: flag,
     graduation:  graduation,
     star: addStar(graduation),
-    posterimg:img
+    posterimg:img,
+    id:id,
+    type:type
   }
 
   var itemText = $(".serched__film");
@@ -34,20 +36,22 @@ function ajaxFilm(title, min, max){
     data: dataout,
     success: function(data){
       var ress = data.results;
-      for (var i =min; i < max ; i++) {
+      for (var i =min; i < max && i< ress.length ; i++) {
         var res = ress[i];
         var title = res.title;
         var originalTitle = res.original_title;
         var language =  res.original_language;
         var vote =  res.vote_average;
         var date = res.release_date;
+        var id = res.id;
+        var type = "movie";
         var round = roundNumber(vote);
         if (res.poster_path == null) {
           var posterimg = "img/image_not_found.jpg"
         }else {
           posterimg = "https://image.tmdb.org/t/p/w300" + res.poster_path;
         }
-        printText(title, originalTitle, language, round, posterimg);
+        printText(title, originalTitle, language, round, posterimg, id, type);
 
       }
     }
@@ -57,7 +61,7 @@ function ajaxFilm(title, min, max){
 
 // HANDLEBARS serch serie
 
-function printTextSeries(title, originalTitle, originalLanguage, graduation, img){
+function printTextSeries(title, originalTitle, originalLanguage, graduation, img, id, type){
   var flag = addFleg(originalLanguage);
   var templateItem = {
     title: title,
@@ -65,7 +69,9 @@ function printTextSeries(title, originalTitle, originalLanguage, graduation, img
     originalLanguage: flag,
     graduation:  graduation,
     star: addStar(graduation),
-    posterimg:img
+    posterimg:img,
+    id:id,
+    type:type
   }
 
   var itemText = $(".serched__series");
@@ -90,20 +96,22 @@ function ajaxSeries(title, min, max){
     data: dataout,
     success: function(data){
       var ress = data.results;
-      for (var i =min; i < max ; i++) {
+      for (var i =min; i < max && i< ress.length; i++) {
         var res = ress[i];
         var title = res.name;
         var originalTitle = res.original_name;
         var language =  res.original_language;
         var vote =  res.vote_average;
         var date = res.release_date;
+        var id = res.id;
+        var type = "tv";
         var round = roundNumber(vote);
         if (res.poster_path == null) {
           var posterimg = "img/image_not_found.jpg"
         }else {
           posterimg = "https://image.tmdb.org/t/p/w300" + res.poster_path;
         }
-        printTextSeries(title, originalTitle, language, round, posterimg);
+        printTextSeries(title, originalTitle, language, round, posterimg, id, type);
 
       }
     }
@@ -113,7 +121,7 @@ function ajaxSeries(title, min, max){
 
 // HANDLEBARS top serie
 
-function printTextTopSeries(title, originalTitle, originalLanguage, graduation, img){
+function printTextTopSeries(title, originalTitle, originalLanguage, graduation, img, id, type){
   var flag = addFleg(originalLanguage);
   var templateItem = {
     title: title,
@@ -121,7 +129,9 @@ function printTextTopSeries(title, originalTitle, originalLanguage, graduation, 
     originalLanguage: flag,
     graduation:  graduation,
     star: addStar(graduation),
-    posterimg:img
+    posterimg:img,
+    id:id,
+    type:type
   }
 
   var itemText = $(".new__series");
@@ -151,13 +161,15 @@ function ajaxTopSeries(min, max){
         var language =  res.original_language;
         var vote =  res.vote_average;
         var date = res.release_date;
+        var id = res.id;
+        var type = "tv";
         var round = roundNumber(vote);
         if (res.poster_path == null) {
           var posterimg = "img/image_not_found.jpg"
         }else {
           posterimg = "https://image.tmdb.org/t/p/w300" + res.poster_path;
         }
-        printTextTopSeries(title, originalTitle, language, round, posterimg);
+        printTextTopSeries(title, originalTitle, language, round, posterimg, id, type);
 
       }
     }
@@ -195,10 +207,10 @@ function ajaxTopActor(min, max){
       for (var i =min; i < max ; i++) {
         var res = ress[i];
         var title = res.name;
-        if (res.backdrop_path == null) {
+        if (res.profile_path == null) {
           var posterimg = "img/image_not_found.jpg"
         }else {
-          posterimg = "https://image.tmdb.org/t/p/w300" + res.backdrop_path;
+          posterimg = "https://image.tmdb.org/t/p/w300" + res.profile_path;
         }
         printTextTopActor(title, posterimg);
 
@@ -231,13 +243,15 @@ function ajaxTopFilm(min, max){
         var language =  res.original_language;
         var vote =  res.vote_average;
         var date = res.release_date;
+        var id = res.id;
+        var type = "movie";
         var round = roundNumber(vote);
         if (res.poster_path == null) {
           var posterimg = "img/image_not_found.jpg"
         }else {
           posterimg = "https://image.tmdb.org/t/p/w300" + res.poster_path;
         }
-        printTopFilm(title, originalTitle, language, round, posterimg);
+        printTopFilm(title, originalTitle, language, round, posterimg, id, type);
 
       }
     }
@@ -247,7 +261,7 @@ function ajaxTopFilm(min, max){
 
 // HANDLEBARS new film
 
-function printTopFilm(title, originalTitle, originalLanguage, graduation, img){
+function printTopFilm(title, originalTitle, originalLanguage, graduation, img, id, type){
   var flag = addFleg(originalLanguage);
   var templateItem = {
     title: title,
@@ -255,7 +269,9 @@ function printTopFilm(title, originalTitle, originalLanguage, graduation, img){
     originalLanguage: flag,
     graduation:  graduation,
     star: addStar(graduation),
-    posterimg:img
+    posterimg:img,
+    id: id,
+    type:type
 
   }
 
@@ -300,6 +316,68 @@ function addStar(graduation){
   return str;
 
 }
+
+
+
+
+function pippo(){
+  var me = $(this);
+  var type = me.attr("data-type");
+  var id = me.attr("data-id");
+  console.log(type);
+  console.log(id);
+  var urlid = "https://api.themoviedb.org/3/" + type + "/" + id ;
+  var urltype = "https://api.themoviedb.org/3/" + type + "/" + id +"/credits"
+  console.log(urlid);
+  console.log(urltype);
+  var dataout ={
+    api_key: "ef19f025849e34c73791406b46789e39",
+    language: "it-IT",
+  }
+  $.ajax ({
+    url: urlid,
+    method: "GET",
+    data: dataout,
+    success: function(data){
+      var res = data.results;
+      // for (var i =0; i < 8 ; i++) {
+      //   var res = ress[i];
+        var title = res.title;
+        var originalTitle = res.original_title;
+        var date = res.release_date;
+        var riassunto =res.overview;
+        if (res.poster_path == null) {
+          var posterimg = "img/image_not_found.jpg"
+        }else {
+          posterimg = "https://image.tmdb.org/t/p/w300" + res.poster_path;
+        }
+        printPippo(title, originalTitle, posterimg, date, riassunto);
+
+      // }
+    }
+  })
+
+}
+
+
+function printPippo(title, originalTitle, img, date, riassunto){
+  var flag = addFleg(originalLanguage);
+  var templateItem = {
+    title: title,
+    originalTitle: originalTitle,
+    img:img,
+    date:date,
+    riassunto:riassunto
+
+
+  }
+  var itemText = $(".info__show");
+  var template = $("#back__template").html();
+  var compiled = Handlebars.compile(template);
+  var textFilm = compiled(templateItem);
+  itemText.append(textFilm);
+}
+
 
 
 function removeSerch(){
@@ -357,6 +435,8 @@ function serchResults(){
    removeSerch();
    ajaxTopActor(min,max);
  })
+
+ $(document).on("click", ".container__item", pippo)
 }
 
 
