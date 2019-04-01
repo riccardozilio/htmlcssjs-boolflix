@@ -511,33 +511,33 @@ function serchResults(){
      ajaxSeries(messaggio, min, max);
      ajaxTopFilm(min, max);
      ajaxTopSeries(min, max);
-     $(document).on("click", ".container__item", pippo)
+
    }
  })
 
  $(".film__button").click(function(){
    var min = 0;
    var max = 20;
-   $(".info__show").remove();
+   $(".info__show").html("");
    removeSerch();
    ajaxTopFilm(min,max);
-   $(document).on("click", ".container__item", pippo)
+
  })
  $(".series__button").click(function(){
    var min = 0;
    var max = 20;
-   $(".info__show").remove();
+   $(".info__show").html("");
    removeSerch();
    ajaxTopSeries(min,max);
-   $(document).on("click", ".container__item", pippo)
+
  })
  $(".actor__button").click(function(){
    var min = 0;
    var max = 20;
-   $(".info__show").remove();
+   $(".info__show").html("");
    removeSerch();
    ajaxTopActor(min,max);
-   $(document).on("click", ".container__item", pippo)
+   
  })
 
  $(document).on("click", ".container__item", pippo)
