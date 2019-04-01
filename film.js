@@ -331,15 +331,17 @@ function addStar(graduation){
 
 
 function pippo(){
+  removeSerch();
 
-  // $(".info__show").remove();
+
   var me = $(this);
   var type = me.attr("data-type");
   var id = me.attr("data-id");
   console.log(type);
   console.log(id);
   var urlid = "https://api.themoviedb.org/3/" + type + "/" + id ;
-  var urltype = "https://api.themoviedb.org/3/" + type + "/" + id +"/credits"
+  var urltype = "https://api.themoviedb.org/3/" + type + "/" + id +"/credits";
+  var urlsimilar = "https://api.themoviedb.org/3/" + type + "/" + id + "/similar"
   console.log(urlid);
   console.log(urltype);
   var dataout ={
@@ -387,6 +389,33 @@ function pippo(){
       }
     }
   })
+  $.ajax ({
+    url: urlsimilar,
+    method: "GET",
+    data: dataout,
+    success: function(data){
+      var ress = data.results;
+      for (var i =0; i < 8 ; i++) {
+        var res = ress[i];
+        var title = res.title;
+        var originalTitle = res.original_title;
+        var language =  res.original_language;
+        var vote =  res.vote_average;
+        var date = res.release_date;
+        var overview = res.overview;
+        var id = res.id;
+        var type = "movie";
+        var round = roundNumber(vote);
+        if (res.poster_path == null) {
+          var posterimg = "img/image_not_found.jpg"
+        }else {
+          posterimg = "https://image.tmdb.org/t/p/w300" + res.poster_path;
+        }
+        printSimilar(title, originalTitle, language, round, posterimg, id, type, overview);
+
+      }
+    }
+  })
 }
 function printPippoCast(name, posterimg){
 
@@ -422,13 +451,34 @@ function printPippo(title, originalTitle, riassunto, posterimg){
   console.log(textFilm);
   itemText.html(textFilm);
 }
+function printSimilar(title, originalTitle, originalLanguage, graduation, img, id, type, overview){
+  var flag = addFleg(originalLanguage);
+  var templateItem = {
+    title: title,
+    originalTitle: originalTitle,
+    originalLanguage: flag,
+    graduation:  graduation,
+    star: addStar(graduation),
+    posterimg:img,
+    id: id,
+    type:type,
+    overview:overview
+
+
+  }
+
+  var itemText = $(".similar__content");
+  var template = $("#film__template").html();
+  var compiled = Handlebars.compile(template);
+  var textFilm = compiled(templateItem);
+  itemText.append(textFilm);
+}
 
 
 
 function removeSerch(){
   var clear = $(".container__item");
   clear.remove();
-  // $(".info__show").remove();
 
 }
 
@@ -450,6 +500,7 @@ function serchResults(){
 
   $(".input__text").keyup(function(event,){
    if (event.which == 13) {
+     // $(".info__show").remove();
      removeSerch();
      var min = 0;
      var max = 8;
@@ -460,26 +511,33 @@ function serchResults(){
      ajaxSeries(messaggio, min, max);
      ajaxTopFilm(min, max);
      ajaxTopSeries(min, max);
+     $(document).on("click", ".container__item", pippo)
    }
  })
 
  $(".film__button").click(function(){
    var min = 0;
    var max = 20;
+   $(".info__show").remove();
    removeSerch();
    ajaxTopFilm(min,max);
+   $(document).on("click", ".container__item", pippo)
  })
  $(".series__button").click(function(){
    var min = 0;
    var max = 20;
+   $(".info__show").remove();
    removeSerch();
    ajaxTopSeries(min,max);
+   $(document).on("click", ".container__item", pippo)
  })
  $(".actor__button").click(function(){
    var min = 0;
    var max = 20;
+   $(".info__show").remove();
    removeSerch();
    ajaxTopActor(min,max);
+   $(document).on("click", ".container__item", pippo)
  })
 
  $(document).on("click", ".container__item", pippo)
