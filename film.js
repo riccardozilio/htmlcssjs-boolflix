@@ -500,7 +500,7 @@ function serchResults(){
 
   $(".input__text").keyup(function(event,){
    if (event.which == 13) {
-     // $(".info__show").remove();
+     $(".info__show").html("");
      removeSerch();
      var min = 0;
      var max = 8;
@@ -537,7 +537,7 @@ function serchResults(){
    $(".info__show").html("");
    removeSerch();
    ajaxTopActor(min,max);
-   
+
  })
 
  $(document).on("click", ".container__item", pippo)
